@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Readme for CAP6614 Term Project Tushar Sangam</title>
+</head>
+<body>
+	
+<p>
+All coding was done in Jupyter Notebooks. <br>
+<b>Requirements</b> - Pytorch, Numpy, Matplotlib, tqdm, Jupyter, tensorboard, Pytorch 1.1 environment <br>
+<br>
+<b>Special Note</b> - Author provided <b> Noise Contrastive Estimation loss </b> works in initial versions of Pytorch only, since I don't use that loss in my improvements I haven't tried porting it to latest version.
+Thus running pretraining on basemethod requires <b>pytorch 1.1</b><br>
+<br>
+There are four models that needs testing for every experiment <br>
+<ol>
+	<li>
+		Base Model
+	</li>
+	<li>
+		Contrastive Model (Improved)
+	</li>
+	<li>
+		Base Model Fine Tuned (20% data)
+	</li>
+	<li>
+		Contrastive Model Fine Tuned (20% data)
+	</li>
+</ol>
+<br>
+<b>Code Factoring</b> - Following is the folder arrangement & thier meaning 
+<ul>
+	<li>
+		"architectures" contains all the models, thier altered versions & custom losses
+	</li>
+	<li>
+		"DatasetPreProcessingScripts" converts datasets into <a href="https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder">"ImageFolder"</a> format of Pytorch Dataset, also creates smaller subset of 20% split for fine tuning
+	</li>
+	<li>
+		"Linear-ImageNet-exp" contains all the four models on Linear Classification as well as a supervised model trained with 20% labels.
+	</li>
+	<li>
+		"NonLinear-ImageNet-exp" contains all the four models on Non Linear Classification
+	</li>
+	<li>
+		"TransferLearning-exp" contains four models on following datasets using Transfer Learning Technique
+		<ul>
+			<li>CIFAR10</li>
+			<li>MiniPlaces</li>
+		</ul>
+	</li>
+
+	<li>
+		"Pretraining" contains pretraining for two main models (Base & Contrastive)
+	</li>
+
+	<li>
+		"CustomDataset.py" imitates author's dataset object without the added complexities, I modified the exisiting dataset object in pytorch
+	</li>
+	<li>
+		"GetDataLoaders.py" returns the dataloaders for given training type "unsupervised" or supervised, "get_short_dataloaders" return the  loaders for 20% subset.<br>
+		Any Changes in dataset directory should be directly modified in this file.
+	</li>
+
+</ul>
+<br><br>
+<b>Formats </b> even though all is done in Jupyter Notebooks, thier <b>python & html exports</b> are availed in each folder. <br>
+
+<b>Running code </b> to run code, dataset root folder for instance "tiny-image-net" or "cifar10" & the corresponding Jypyter Notebook or .py file should be present at the root directory level. Thus to run any experiment simply copy the script file from inside of the folders to root project directory (where this readme file exsists).<br><br>
+
+All the training, loss calculation & optimization steps are given at one place in corresponding notebooks in a easy way without using complicated Software Programming practices like in the Author's github.<br>
+Pretrained weights will be available through google drive <a href="https://drive.google.com/drive/u/0/folders/1X3yYKj54L0z-Ws-Pm5-1RLTVzpHoYq93">here</a>. Make a new folder "weights" in the same directory level as main script file.<br>
+
+
+</p>
+	<br>
+	<p> Access Jupyter HTML Outputs </p>
+<ul>
+	<li>
+		Pretraining on ImageNet
+		<ul>
+			<li><a href="./Pretraining/htmlexports/pretraining-basemethod.html">Base Method</a></li>
+			<li><a href="./Pretraining/htmlexports/pretraining-ConstrastiveLoss.html">Contrastive Method</a></li>
+		</ul>
+	</li>
+	<li>
+		Linear Classification on Image-Net
+		<ul>
+			<li><a href="./Linear-ImageNet-exp/htmlexports/Imagenet-Classification-basemethod.html">Base Method (Top-1 - 26.580)</a></li>
+			<li><a href="./Linear-ImageNet-exp/htmlexports/Imagenet-Classification-contrastive.html">Contrastive Method (Top-1 - 27.5450)</a></li>
+			<li><a href="./Linear-ImageNet-exp/htmlexports/Imagenet-Classification-finetuning-basemethod.html">Base Method Fine Tuned (Top-1 - 33.5650)</a></li>
+			<li><a href="./Linear-ImageNet-exp/htmlexports/Imagenet-Classification-finetuning-Contrastive.html">Contrastive Method Fine Tuned (Top-1 - 34.900) </a></li>
+			<li><a href="./Linear-ImageNet-exp/htmlexports/Imagenet-Classification-supervised-training-on-percent-of-data.html">Supervised Cross Entropy on 20% labels (Top-1 - 18.4250)</a></li>
+		</ul>
+	</li>
+	<li>
+		Non-Linear Classification on Image-Net
+		<ul>
+			<li><a href="./NonLinear-ImageNet-exp/htmlexports/Imagenet-Classification-basemethod-NonLinearClassifier.html">Base Method (Top-1 - 37.220)</a></li>
+			<li><a href="./NonLinear-ImageNet-exp/htmlexports/Imagenet-Classification-contrastive-NonLinear.html">Contrastive Method (Top-1 - 38.1950)</a></li>
+			<li><a href="./NonLinear-ImageNet-exp/htmlexports/Imagenet-Classification-basemethod-finetuned-NonLinearClassifier.html">Base Method Fine Tuned (Top-1 - 40.2500)</a></li>
+			<li><a href="./NonLinear-ImageNet-exp/htmlexports/Imagenet-Classification-contrastive-finetuned-NonLinear.html">Contrastive Method Fine Tuned (Top-1 - 40.9950)</a></li>
+			
+		</ul>
+	</li>
+	<li>
+		Transfer Learning
+		<ul>
+			<li>
+				CIFAR10
+				<ul>
+					<li><a href="./TransferLearning-exp/CIFAR10/htmlexports/CIFAR10-Classification-basemethod.html">Base Method (Top-1 - 65.600)</a></li>
+					<li><a href="./TransferLearning-exp/CIFAR10/htmlexports/CIFAR10-Classification-constrastive.html">Contrastive Method (Top-1 - 66.4600)</a></li>
+					<li><a href="./TransferLearning-exp/CIFAR10/htmlexports/CIFAR10-Classification-basemethod-finetuned.html">Base Method Fine Tuned (Top-1 - 67.5500)</a></li>
+					<li><a href="./TransferLearning-exp/CIFAR10/htmlexports/CIFAR10-Classification-contrastive-finetuned.html">Contrastive Method Fine Tuned (Top-1 - 67.7900)</a></li>
+			
+				</ul>
+			</li>
+			<li>
+				Places
+				<ul>
+					<li><a href="./TransferLearning-exp/Places/htmlexports/Places-Classification-basemethod.html">Base Method (Top-1 - 26.3100)</a></li>
+					<li><a href="./TransferLearning-exp/Places/htmlexports/Places-Classification-Contrastive.html">Contrastive Method (Top-1 - 26.5400)</a></li>
+					<li><a href="./TransferLearning-exp/Places/htmlexports/Places-Classification-basemethod-finetuned.html">Base Method Fine Tuned (Top-1 - 27.2500)</a></li>
+					<li><a href="./TransferLearning-exp/Places/htmlexports/Places-Classification-Contrastive-finetuned.html">Contrastive Method Fine Tuned (Top-1 - 27.6200)</a></li>
+					
+				</ul>
+			</li>
+		</ul>
+		
+	</li>
+	<li>
+		SimCLR Failure
+		<ul>
+			<li><a href="./SimCLR-failure/htmlexports/pretraining-SimCLR.html">Pretraining</a></li>
+			<li><a href="./SimCLR-failure/htmlexports/Imagenet-Classification-SimCLR.html">Classification</a></li>
+		</ul>
+	</li>
+	<li>
+		PU Rotation Probabilities Experiement
+		<ul>
+			<li><a href="./PURotationProbability-exp/htmlexports/Pre-trained-RotNetPUProbs.html">Pretrained</a></li>
+			<li><a href="./PURotationProbability-exp/htmlexports/RotNetPuProbs for tinyImagenet.html">Predicting</a></li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>
